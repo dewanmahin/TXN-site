@@ -18,6 +18,20 @@ function updateTotalAmount(totalFieldId, newTransactionAmount){
     transactionTotal.innerText = previousTransactionAmount + newTransactionAmount;
 }
 
+// update account balance using function
+function updateBalance(newTransactionAmount, isAdd){
+    const balanceTotal = document.getElementById('balance-total');
+    const balanceTotalText = balanceTotal.innerText
+    const previousBalanceTotal = parseFloat(balanceTotalText);
+    if(isAdd == true){
+        const newBalanceTotal = previousBalanceTotal + newTransactionAmount;
+        balanceTotal.innerText = newBalanceTotal;
+    }else{
+        const newBalanceTotal = previousBalanceTotal - newTransactionAmount;
+        balanceTotal.innerText = newBalanceTotal;
+    }
+}
+
 // deposit button event handler
 document.getElementById('deposit-btn').addEventListener('click', function(){
     // get the amount deposited
@@ -27,11 +41,7 @@ document.getElementById('deposit-btn').addEventListener('click', function(){
     updateTotalAmount('deposit-total', newDepositAmount);
     
     // update account balance
-    const balanceTotal = document.getElementById('balance-total');
-    const balanceTotalText = balanceTotal.innerText
-    const previousBalanceTotal = parseFloat(balanceTotalText);
-    const newBalanceTotal = previousBalanceTotal + newDepositAmount;
-    balanceTotal.innerText = newBalanceTotal;
+    updateBalance(newDepositAmount, true);
 })
 
 // withdraw button event handler
@@ -43,9 +53,5 @@ document.getElementById('withdraw-btn').addEventListener('click', function(){
     updateTotalAmount('withdraw-total', newWithdrawAmount);
 
     // update account balance
-    const balanceTotal = document.getElementById('balance-total');
-    const balanceTotalText = balanceTotal.innerText
-    const previousBalanceTotal = parseFloat(balanceTotalText);
-    const newBalanceTotal = previousBalanceTotal - newWithdrawAmount;
-    balanceTotal.innerText = newBalanceTotal;
+    updateBalance(newWithdrawAmount, false);
 })
